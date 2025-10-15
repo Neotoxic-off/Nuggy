@@ -1,0 +1,10 @@
+services:
+  nuggy:
+    build: app
+    container_name: nuggy
+    restart: unless-stopped
+    environment:
+      - DISCORD_WEBHOOK=${DISCORD_WEBHOOK}
+    volumes:
+      - ./config:/app/config
+      - ./logs:/app/logs
