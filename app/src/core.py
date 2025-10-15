@@ -12,6 +12,7 @@ class Core:
         self.index: dict = {}
         self.packages: list = {}
         self.interval: dict = 1 * 60 * 60
+        self.processed: bool = False
         self.logger: Logger = logging.getLogger("nuggy")
         self.discord: Discord = Discord(os.environ.get("DISCORD_WEBHOOK"))
         self.nuget: Nuget = Nuget()
@@ -50,10 +51,13 @@ class Core:
             self.logger.error("failed to fetch version")
 
     def _check_all_packages(self):
-        for package in self.packages:
-            self._check_for_updates(package)
+        if self.processed == False:
+            for package in self.packages:
+                self._check_for_updates(package)
+        self.processed = True
 
     def run(self):
         while True:
             self._check_all_packages()
             time.sleep(self.interval)
+            self.processed = False

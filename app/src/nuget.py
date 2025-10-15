@@ -10,9 +10,7 @@ class Nuget:
 
     def get_latest_version(self, package: str):
         url: str = self._build_url(package)
-        print(url)
         response: Response = requests.get(url, timeout=10)
-
 
         data: dict = response.json()
         versions: list = []
@@ -21,4 +19,3 @@ class Nuget:
             versions = data.get("versions")
             if versions is not None:
                 return versions[-1]
-
