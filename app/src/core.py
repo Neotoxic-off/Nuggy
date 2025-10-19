@@ -51,13 +51,8 @@ class Core:
             self.logger.error("failed to fetch version")
 
     def _check_all_packages(self):
-        if self.processed == False:
-            for package in self.packages:
-                self._check_for_updates(package)
-        self.processed = True
+        for package in self.packages:
+            self._check_for_updates(package)
 
     def run(self):
-        while True:
-            self._check_all_packages()
-            time.sleep(self.interval)
-            self.processed = False
+        self._check_all_packages()
