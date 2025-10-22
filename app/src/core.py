@@ -10,7 +10,7 @@ from src.nuget import Nuget
 class Core:
     def __init__(self):
         self.index: dict = {}
-        self.packages: list = {}
+        self.packages: list = []
         self.interval: dict = 1 * 60 * 60
         self.processed: bool = False
         self.logger: Logger = logging.getLogger("nuggy")

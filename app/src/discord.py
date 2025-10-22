@@ -4,7 +4,7 @@ from datetime import datetime
 
 class Discord:
     def __init__(self, webhook_url: str):
-        self.webhook_url = webhook_url
+        self.webhook_url: str = webhook_url
 
     def send_new_version(self, package_name: str, version: str) -> None:
         embed: dict = {
