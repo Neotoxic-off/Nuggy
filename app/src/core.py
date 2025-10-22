@@ -10,8 +10,7 @@ from src.nuget import Nuget
 class Core:
     def __init__(self):
         self.index: dict = {}
-        self.packages: list = {}
-        self.interval: dict = 1 * 60 * 60
+        self.packages: list = []
         self.processed: bool = False
         self.logger: Logger = logging.getLogger("nuggy")
         self.discord: Discord = Discord(os.environ.get("DISCORD_WEBHOOK"))
@@ -22,7 +21,7 @@ class Core:
         self._load_packages()
 
     def _load_packages(self):
-        path: Path = Path("config/packages.json")
+        path: Path = Path("/app/config/packages.json")
 
         if path.exists() == True:
             with open(f"{path}", 'r') as f:
