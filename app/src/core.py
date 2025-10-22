@@ -43,9 +43,9 @@ class Core:
         if latest_version is not None:
             self.logger.info(f"latest {package} version: {latest_version}")        
             if latest_version is None or version != latest_version:
-                self._set_latest_version(package, latest_version)
                 self.logger.info(f"new version: {latest_version} > {version}")
                 self.discord.send_new_version(package, latest_version)
+            self._set_latest_version(package, latest_version)
         else:
             self.logger.error("failed to fetch version")
 
