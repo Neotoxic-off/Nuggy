@@ -7,9 +7,13 @@ class Cache:
         self.content: dict = self._load()
     
     def _load(self):
+        content: dict = {}
+
         if self.path.exists():
             with open(self.path, "r") as f:
-                self.content = json.loads(f.read())
+                content = json.loads(f.read())
+
+        return content
 
     def save(self):
         with open(self.path, "w+") as f:
