@@ -6,6 +6,7 @@ from pathlib import Path
 from logging import Logger
 from src.discord import Discord
 from src.nuget import Nuget
+from src.cache import Cache
 
 class Core:
     def __init__(self):
@@ -15,6 +16,7 @@ class Core:
         self.logger: Logger = logging.getLogger("nuggy")
         self.discord: Discord = Discord(os.environ.get("DISCORD_WEBHOOK"))
         self.nuget: Nuget = Nuget()
+        self.cache: Cache = Cache()
 
         logging.basicConfig(level=logging.INFO)
 
@@ -29,10 +31,11 @@ class Core:
         self.logger.info(f"{len(self.packages)} packages are now tracked")
 
     def _set_latest_version(self, package: str, version: str):
-        self.index[package] = version
+        self.cache.content[package] = version
+        self.cache.save()
 
     def _get_latest_version(self, package: str):
-        return self.index.get(package)
+        return self.cache.content.get(package)
 
     def _check_for_updates(self, package: str):
         self.logger.info(f"tracking {package} version")
